@@ -51,16 +51,16 @@
             display: inline-block;
             background-color: #007bff;
             color: white;
-            padding: 8px 20px; /* Уменьшена высота кнопок */
+            padding: 8px 20px;
             font-size: 14px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin: 5px;
-            height: 40px; /* Установлена одинаковая высота для обеих кнопок */
+            height: 40px;
             line-height: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Одинаковый шрифт */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         button:hover {
             background-color: #0056b3;
@@ -86,9 +86,9 @@
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
             margin-left: 10px;
-            height: 40px; /* Тоже уменьшена высота для кнопки копирования */
+            height: 40px;
             line-height: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Одинаковый шрифт */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         #copyButton:hover {
             background-color: #0056b3;
@@ -121,8 +121,10 @@
                 return;
             }
 
-            // Функция для форматирования формулы
+            // Функция для форматирования формулы с учетом длины строки
             function prettyFormat(formula) {
+                const maxLineLength = 50; // Максимальная длина строки для переноса
+
                 let indent = 0;
                 const formatted = formula
                     .replace(/;/g, ';\n') // Перенос строки после каждого ";"
@@ -137,7 +139,17 @@
                     })
                     .join('\n'); // Собираем строки обратно
 
-                return formatted;
+                // Теперь разделяем формулу, если она длинная
+                const formattedLines = formatted.split('\n');
+                const result = formattedLines.map(line => {
+                    if (line.length > maxLineLength) {
+                        // Если строка слишком длинная, разбиваем её на несколько строк
+                        return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
+                    }
+                    return line;
+                }).join('\n');
+
+                return result;
             }
 
             const formattedFormula = prettyFormat(inputFormula);
