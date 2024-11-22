@@ -20,6 +20,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             border-top: 4px solid #007bff;
+            position: relative; /* Для позиционирования кнопки */
         }
         h1 {
             text-align: center;
@@ -71,6 +72,9 @@
             white-space: pre-wrap; /* Для многострочного отображения */
         }
         #copyButton {
+            position: absolute; /* Позиционирование кнопки */
+            top: 20px; /* Отступ от верхнего края */
+            right: 20px; /* Отступ от правого края */
             background-color: #007bff;
             color: white;
             padding: 8px 15px;
@@ -95,10 +99,9 @@
         <div class="output" id="formattedOutput">
             <!-- Результат будет отображаться здесь -->
         </div>
-        <div style="text-align: center; margin-top: 20px;">
-            <!-- Кнопка копирования вынесена сюда -->
-            <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Копировать / Copy</button>
-        </div>
+
+        <!-- Кнопка копирования теперь находится в правом верхнем углу -->
+        <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Копировать / Copy</button>
     </div>
 
     <script>
