@@ -71,7 +71,6 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
             position: relative;
-            overflow: hidden;
         }
         #copyButton {
             position: absolute;
@@ -87,6 +86,7 @@
             z-index: 1;
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
+            display: none; /* Скрываем кнопку по умолчанию */
         }
         #copyButton:hover {
             background-color: #0056b3;
@@ -103,7 +103,7 @@
         </div>
         <div class="output" id="formattedOutput">
             <!-- Результат будет отображаться здесь -->
-            <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Копировать / Copy</button>
+            <button id="copyButton" onclick="copyToClipboard()">Копировать / Copy</button>
         </div>
     </div>
 
