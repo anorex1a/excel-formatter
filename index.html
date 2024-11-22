@@ -121,30 +121,24 @@
                 return;
             }
 
-            // Функция для форматирования формулы с учетом длины строки
+            // Функция для форматирования формулы
             function prettyFormat(formula) {
                 const maxLineLength = 100; // Максимальная длина строки для переноса
 
                 let indent = 0;
-                const formatted = formula
-                    .replace(/;/g, ';\n') // Перенос строки после каждого ";"
-                    .replace(/\(/g, '(\n') // Перенос строки после "("
-                    .replace(/\)/g, '\n)') // Перенос строки перед ")"
-                    .split('\n') // Разбиваем на строки для добавления отступов
-                    .map(line => {
-                        if (line.includes(')')) indent -= 4; // Уменьшаем отступ перед ")"
-                        const indentedLine = ' '.repeat(indent) + line.trim(); // Добавляем отступ
-                        if (line.includes('(')) indent += 4; // Увеличиваем отступ после "("
-                        return indentedLine;
-                    })
-                    .join('\n'); // Собираем строки обратно
+                let formatted = formula;
 
-                // Фильтруем формулы типа ВПР, чтобы не разбивать их
+                // Перенос строки после каждой функции (например, ВПР, ЕСЛИ и т.д.)
+                formatted = formatted.replace(/;/g, ';\n') // Перенос строки после каждого ";"
+                    .replace(/\(/g, '(\n') // Перенос строки после "("
+                    .replace(/\)/g, '\n)'); // Перенос строки перед ")"
+                
+                // Обрабатываем вложенные функции с отступами
                 const lines = formatted.split('\n');
-                const result = lines.map(line => {
-                    // Проверяем, если в строке формула ВПР, то не переносим
-                    if (line.includes('ВПР') || line.includes('ЕСЛИОШИБКА')) {
-                        return line; // Оставляем эту строку без изменений
+                formatted = lines.map(line => {
+                    // Оставляем функции типа ВПР или ЕСЛИ на одной строке
+                    if (line.includes('ВПР') || line.includes('ЕСЛИОШИБКА') || line.length < maxLineLength) {
+                        return line.trim(); // Не разбиваем на строки
                     }
 
                     // Если строка слишком длинная, разбиваем её на несколько строк
@@ -152,10 +146,10 @@
                         return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
                     }
 
-                    return line;
+                    return line.trim();
                 }).join('\n');
 
-                return result;
+                return formatted;
             }
 
             const formattedFormula = prettyFormat(inputFormula);
