@@ -71,6 +71,7 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
             position: relative;
+            overflow-x: auto;
         }
         #copyButton {
             position: absolute;
@@ -83,10 +84,10 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            z-index: 1;
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
-            display: none; /* Скрываем кнопку по умолчанию */
+            display: inline-block; /* Убираем display: none */
+            z-index: 1;
         }
         #copyButton:hover {
             background-color: #0056b3;
