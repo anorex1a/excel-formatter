@@ -105,7 +105,7 @@
         <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
         <div class="button-container">
             <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
-            <button id="copyButton" onclick="copyToClipboard()" style="display:none;">Копировать / Copy</button>
+            <button id="copyButton" onclick="copyToClipboard()">Копировать / Copy</button>
         </div>
         <div class="output" id="formattedOutput">
             <!-- Результат будет отображаться здесь -->
@@ -123,7 +123,7 @@
 
             // Функция для форматирования формулы с учетом длины строки
             function prettyFormat(formula) {
-                const maxLineLength = 80; // Максимальная длина строки для переноса
+                const maxLineLength = 100; // Максимальная длина строки для переноса
 
                 let indent = 0;
                 const formatted = formula
@@ -139,13 +139,19 @@
                     })
                     .join('\n'); // Собираем строки обратно
 
-                // Теперь разделяем формулу, если она длинная
-                const formattedLines = formatted.split('\n');
-                const result = formattedLines.map(line => {
+                // Фильтруем формулы типа ВПР, чтобы не разбивать их
+                const lines = formatted.split('\n');
+                const result = lines.map(line => {
+                    // Проверяем, если в строке формула ВПР, то не переносим
+                    if (line.includes('ВПР') || line.includes('ЕСЛИОШИБКА')) {
+                        return line; // Оставляем эту строку без изменений
+                    }
+
+                    // Если строка слишком длинная, разбиваем её на несколько строк
                     if (line.length > maxLineLength) {
-                        // Если строка слишком длинная, разбиваем её на несколько строк
                         return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
                     }
+
                     return line;
                 }).join('\n');
 
