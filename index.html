@@ -56,6 +56,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 5px;
         }
         button:hover {
             background-color: #0056b3;
@@ -68,6 +69,11 @@
             border-radius: 8px;
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap; /* Для многострочного отображения */
+            position: relative;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -77,9 +83,12 @@
         <p class="subtitle">Excel Formula Formatter</p>
         <textarea id="formulaInput" placeholder="Введите вашу формулу здесь..."></textarea>
         <div style="text-align: center;">
-            <button onclick="formatFormula()">Форматировать формулу</button>
+            <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
         </div>
         <div class="output" id="formattedOutput"></div>
+        <div class="button-container">
+            <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Копировать / Copy</button>
+        </div>
     </div>
 
     <script>
@@ -87,7 +96,7 @@
             const inputFormula = document.getElementById('formulaInput').value;
 
             if (!inputFormula) {
-                alert('Пожалуйста, введите формулу.');
+                alert('Пожалуйста, введите формулу / Please enter a formula.');
                 return;
             }
 
@@ -114,7 +123,23 @@
 
             // Выводим результат
             const outputElement = document.getElementById('formattedOutput');
-            outputElement.innerHTML = `<strong>Результат:</strong>\n\n${formattedFormula}`;
+            outputElement.innerHTML = `<strong>Результат / Result:</strong>\n\n${formattedFormula}`;
+
+            // Показываем кнопку "Копировать"
+            const copyButton = document.getElementById('copyButton');
+            copyButton.style.display = 'inline-block';
+        }
+
+        function copyToClipboard() {
+            const outputElement = document.getElementById('formattedOutput');
+            const formattedText = outputElement.textContent.replace('Результат / Result:\n\n', ''); // Убираем заголовок "Результат:"
+
+            navigator.clipboard.writeText(formattedText).then(() => {
+                alert('Формула скопирована в буфер обмена! / Formula copied to clipboard!');
+            }).catch(err => {
+                console.error('Ошибка копирования / Copying error: ', err);
+                alert('Не удалось скопировать формулу / Failed to copy the formula.');
+            });
         }
     </script>
 </body>
