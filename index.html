@@ -75,19 +75,34 @@
             text-align: center;
             margin-top: 10px;
         }
+        #copyButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #copyButton:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Форматировщик формул Excel</h1>
         <p class="subtitle">Excel Formula Formatter</p>
-        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь..."></textarea>
+        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
         <div style="text-align: center;">
             <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
         </div>
-        <div class="output" id="formattedOutput"></div>
-        <div class="button-container">
-            <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Копировать / Copy</button>
+        <div class="output" id="formattedOutput">
+            <button id="copyButton" onclick="copyToClipboard()">Копировать / Copy</button>
         </div>
     </div>
 
@@ -123,11 +138,11 @@
 
             // Выводим результат
             const outputElement = document.getElementById('formattedOutput');
-            outputElement.innerHTML = `<strong>Результат / Result:</strong>\n\n${formattedFormula}`;
+            outputElement.innerHTML = `<strong>Результат / Result:</strong>\n\n<pre>${formattedFormula}</pre>`;
 
             // Показываем кнопку "Копировать"
             const copyButton = document.getElementById('copyButton');
-            copyButton.style.display = 'inline-block';
+            copyButton.style.display = 'block';
         }
 
         function copyToClipboard() {
