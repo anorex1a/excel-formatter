@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Formula Formatter</title>
+    <title>Форматировщик формул Excel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,10 +52,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Excel Formula Formatter</h1>
-        <p>Enter your Excel formula below to format it for better readability:</p>
-        <textarea id="formulaInput" placeholder="Enter your formula here..."></textarea>
-        <button onclick="formatFormula()">Format Formula</button>
+        <h1>Форматирование формул Excel</h1>
+        <p>Введите вашу формулу Excel ниже, чтобы улучшить её читаемость:</p>
+        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь..."></textarea>
+        <button onclick="formatFormula()">Форматировать формулу</button>
         <div class="output" id="formattedOutput"></div>
     </div>
 
@@ -64,7 +64,7 @@
             const inputFormula = document.getElementById('formulaInput').value;
 
             if (!inputFormula) {
-                alert('Please enter a formula.');
+                alert('Пожалуйста, введите формулу.');
                 return;
             }
 
@@ -78,7 +78,7 @@
                 const data = await response.json();
                 document.getElementById('formattedOutput').textContent = data.formatted;
             } else {
-                alert('Failed to format formula. Please try again later.');
+                alert('Не удалось форматировать формулу. Попробуйте позже.');
             }
         }
     </script>
