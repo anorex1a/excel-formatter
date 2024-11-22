@@ -20,9 +20,10 @@ function formatFormula() {
         return formatted.trim();
     }
 
+    // Форматируем введенную формулу
     const formattedFormula = prettyFormat(inputFormula);
 
-    // Выводим результат
+    // Выводим отформатированную формулу в элемент output
     const outputElement = document.getElementById('formattedOutput');
     outputElement.innerHTML = '<strong>Результат / Result:</strong><pre>' + formattedFormula + '</pre>';
 
