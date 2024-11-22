@@ -51,14 +51,16 @@
             display: inline-block;
             background-color: #007bff;
             color: white;
-            padding: 12px 25px;
-            font-size: 16px;
+            padding: 8px 20px; /* Уменьшена высота кнопок */
+            font-size: 14px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin: 5px;
-            height: 50px; /* Задаем одинаковую высоту для обеих кнопок */
+            height: 40px; /* Установлена одинаковая высота для обеих кнопок */
+            line-height: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Одинаковый шрифт */
         }
         button:hover {
             background-color: #0056b3;
@@ -84,6 +86,9 @@
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
             margin-left: 10px;
+            height: 40px; /* Тоже уменьшена высота для кнопки копирования */
+            line-height: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Одинаковый шрифт */
         }
         #copyButton:hover {
             background-color: #0056b3;
