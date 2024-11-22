@@ -71,6 +71,7 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap; /* Для многострочного отображения */
             position: relative;
+            overflow: hidden; /* Чтобы не выходило за пределы блока */
         }
         #copyButton {
             position: absolute; /* Позиционирование кнопки внутри блока output */
@@ -83,6 +84,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            z-index: 10; /* Обеспечиваем, что кнопка будет поверх контента */
         }
         #copyButton:hover {
             background-color: #0056b3;
