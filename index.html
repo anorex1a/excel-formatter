@@ -125,7 +125,6 @@
             function prettyFormat(formula) {
                 const maxLineLength = 100; // Максимальная длина строки для переноса
 
-                let indent = 0;
                 let formatted = formula;
 
                 // Перенос строки после каждой функции (например, ВПР, ЕСЛИ и т.д.)
@@ -133,20 +132,16 @@
                     .replace(/\(/g, '(\n') // Перенос строки после "("
                     .replace(/\)/g, '\n)'); // Перенос строки перед ")"
                 
-                // Обрабатываем вложенные функции с отступами
+                // Обрабатываем вложенные функции с отступами, только если выражение слишком длинное
                 const lines = formatted.split('\n');
                 formatted = lines.map(line => {
-                    // Оставляем функции типа ВПР или ЕСЛИ на одной строке
-                    if (line.includes('ВПР') || line.includes('ЕСЛИОШИБКА') || line.length < maxLineLength) {
+                    // Если строка содержит важную функцию типа ВПР или ЕСЛИ и является достаточно короткой, не делаем лишнего разбиения
+                    if (line.length < maxLineLength) {
                         return line.trim(); // Не разбиваем на строки
                     }
 
                     // Если строка слишком длинная, разбиваем её на несколько строк
-                    if (line.length > maxLineLength) {
-                        return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
-                    }
-
-                    return line.trim();
+                    return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
                 }).join('\n');
 
                 return formatted;
