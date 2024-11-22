@@ -70,13 +70,9 @@
             border-radius: 8px;
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
-            position: relative;
             overflow-x: auto;
         }
         #copyButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             background-color: #007bff;
             color: white;
             padding: 8px 15px;
@@ -86,10 +82,13 @@
             cursor: pointer;
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
-            z-index: 1;
+            margin-left: 10px;
         }
         #copyButton:hover {
             background-color: #0056b3;
+        }
+        .button-container {
+            text-align: center;
         }
     </style>
 </head>
@@ -98,12 +97,12 @@
         <h1>Форматировщик формул Excel</h1>
         <p class="subtitle">Excel Formula Formatter</p>
         <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
-        <div style="text-align: center;">
+        <div class="button-container">
             <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
+            <button id="copyButton" onclick="copyToClipboard()">Копировать / Copy</button>
         </div>
         <div class="output" id="formattedOutput">
             <!-- Результат будет отображаться здесь -->
-            <button id="copyButton" onclick="copyToClipboard()">Копировать / Copy</button>
         </div>
     </div>
 
@@ -141,9 +140,8 @@
             const outputElement = document.getElementById('formattedOutput');
             outputElement.innerHTML = '<strong>Результат / Result:</strong><pre>' + formattedFormula + '</pre>';
 
-            // Убедимся, что кнопка "Копировать" все еще видна
-            const copyButton = document.getElementById('copyButton');
-            copyButton.style.display = 'inline-block'; // Сделаем кнопку видимой
+            // Показываем кнопку "Копировать"
+            document.getElementById('copyButton').style.display = 'inline-block';
         }
 
         function copyToClipboard() {
