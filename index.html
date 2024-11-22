@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форматировщик формул Excel | Excel Formula Formatter</title>
+    <title>Форматировщик формул Excel</title>
     <style>
-        /* Общие стили */
         body {
+            background: linear-gradient(135deg, #e3f2fd, #ffffff);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #e3f2fd, #ffffff);
             color: #333;
         }
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            border-top: 4px solid #007bff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
@@ -28,117 +26,80 @@
             margin-bottom: 10px;
             color: #007bff;
         }
-        .subtitle {
-            text-align: center;
-            font-size: 1em;
-            color: #666;
-            margin-bottom: 30px;
-        }
         textarea {
             width: 100%;
             height: 120px;
             margin-bottom: 20px;
             padding: 15px;
             font-size: 14px;
-            border: 1px solid #ddd;
+            border: 2px solid #007bff;
             border-radius: 8px;
-            font-family: 'Courier New', Courier, monospace;
             background-color: #f9f9f9;
+            font-family: 'Courier New', Courier, monospace;
         }
         button {
             display: inline-block;
             background-color: #007bff;
             color: white;
-            padding: 12px 25px;
+            padding: 12px 20px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 0 auto;
+            display: block;
         }
         button:hover {
             background-color: #0056b3;
         }
         .output {
-            margin-top: 30px;
+            margin-top: 20px;
             padding: 20px;
+            border: 2px solid #cddc39;
             background-color: #f1f8e9;
-            border: 1px solid #cddc39;
             border-radius: 8px;
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .text-block {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .text-block .primary {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-        }
-        .text-block .secondary {
-            font-size: 1em;
-            color: #777;
-            margin-top: 5px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             font-size: 0.9em;
             color: #777;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Форматировщик формул Excel</h1>
-        <p class="subtitle">Excel Formula Formatter</p>
-        <p class="text-block">
-            <span class="primary">Введите вашу формулу ниже, чтобы улучшить её читаемость:</span><br>
-            <span class="secondary">Enter your formula below to improve its readability:</span>
-        </p>
-        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
-        <div style="text-align: center;">
-            <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
-        </div>
+        <textarea id="formulaInput" placeholder="Введите вашу формулу..."></textarea>
+        <button onclick="formatFormula()">Форматировать формулу</button>
         <div class="output" id="formattedOutput"></div>
     </div>
-
     <footer>
-        <p>Создано для упрощения работы с формулами. | Made for simplifying work with formulas.</p>
-        <p><a href="https://www.daxformatter.com/" target="_blank">Inspired by DAX Formatter</a></p>
+        <p>Сделано с любовью для упрощения работы с формулами.</p>
     </footer>
-
     <script>
         async function formatFormula() {
             const inputFormula = document.getElementById('formulaInput').value;
 
             if (!inputFormula) {
-                alert('Пожалуйста, введите формулу. / Please enter a formula.');
+                alert('Пожалуйста, введите формулу.');
                 return;
             }
 
-            // Здесь вместо "your-server-api.com" нужно использовать ваш API.
-            const response = await fetch('https://your-server-api.com/format', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ formula: inputFormula })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById('formattedOutput').textContent = data.formatted;
-            } else {
-                alert('Не удалось форматировать формулу. Попробуйте позже. / Failed to format formula. Please try later.');
-            }
+            // Заглушка: замена серверного API для демонстрации
+            document.getElementById('formattedOutput').textContent = `Отформатированная формула: ${inputFormula}`;
         }
     </script>
 </body>
