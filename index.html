@@ -48,14 +48,30 @@
             white-space: pre-wrap;
             border: 1px solid #ddd;
         }
+        .text-block {
+            margin-bottom: 10px;
+        }
+        .text-block .primary {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .text-block .secondary {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Форматирование формул Excel</h1>
-        <p>Введите вашу формулу Excel ниже, чтобы улучшить её читаемость:</p>
-        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь..."></textarea>
-        <button onclick="formatFormula()">Форматировать формулу</button>
+        <h1>Форматировщик формул Excel</h1>
+        <p class="text-block">
+            <span class="primary">Введите вашу формулу Excel ниже, чтобы улучшить её читаемость:</span><br>
+            <span class="secondary">Enter your Excel formula below to improve its readability:</span>
+        </p>
+        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
+        <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
         <div class="output" id="formattedOutput"></div>
     </div>
 
@@ -64,7 +80,7 @@
             const inputFormula = document.getElementById('formulaInput').value;
 
             if (!inputFormula) {
-                alert('Пожалуйста, введите формулу.');
+                alert('Пожалуйста, введите формулу. / Please enter a formula.');
                 return;
             }
 
@@ -78,7 +94,7 @@
                 const data = await response.json();
                 document.getElementById('formattedOutput').textContent = data.formatted;
             } else {
-                alert('Не удалось форматировать формулу. Попробуйте позже.');
+                alert('Не удалось форматировать формулу. Попробуйте позже. / Failed to format formula. Please try later.');
             }
         }
     </script>
