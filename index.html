@@ -123,25 +123,17 @@
 
             // Функция для форматирования формулы
             function prettyFormat(formula) {
-                // Перенос строки после каждого ";"
-                let formatted = formula.replace(/;/g, ';\n')
-                                       .replace(/\(/g, '(\n') // Перенос строки после "("
-                                       .replace(/\)/g, '\n)'); // Перенос строки перед ")"
-                
-                // Делаем отступы только для длинных формул
-                const maxLineLength = 100; // Максимальная длина строки для переноса
-                let lines = formatted.split('\n');
+                // Форматируем формулу для лучшего восприятия
+                let formatted = formula
+                    .replace(/, /g, ',')  // Убираем лишние пробелы после запятой
+                    .replace(/\(/g, '(\n  ') // Добавляем отступ после (
+                    .replace(/\)/g, '\n)\n') // Добавляем отступ перед )
+                    .replace(/; /g, ';\n  ')  // Разделение частей через ;
+                    .replace(/(\w+)(?=\()/g, '\n$&') // Функции начинаются с новой строки
+                    .replace(/(ЕСЛИ|ВПР|МЕСЯЦ|ГОД|ЗНАК|ABS|СУММ)(?=\()/g, '\n$&'); // Выделяем ключевые функции на новой строке
 
-                formatted = lines.map(line => {
-                    if (line.length < maxLineLength) {
-                        return line.trim(); // Не разбиваем на строки
-                    }
-
-                    // Если строка слишком длинная, разбиваем её на несколько строк
-                    return line.match(new RegExp('.{1,' + maxLineLength + '}', 'g')).join('\n');
-                }).join('\n');
-
-                return formatted;
+                // Убираем лишние пробелы и добавляем отступы
+                return formatted.replace(/^/gm, '  ').trim();
             }
 
             const formattedFormula = prettyFormat(inputFormula);
