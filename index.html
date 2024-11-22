@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форматировщик формул Excel</title>
     <style>
-        /* Общие стили */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -68,34 +67,7 @@
             border: 1px solid #cddc39;
             border-radius: 8px;
             font-family: 'Courier New', Courier, monospace;
-            white-space: pre-wrap; /* Важное свойство для переноса строк */
-        }
-        .text-block {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .text-block .primary {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-        }
-        .text-block .secondary {
-            font-size: 1em;
-            color: #777;
-            margin-top: 5px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
+            white-space: pre-wrap; /* Для многострочного отображения */
         }
     </style>
 </head>
@@ -103,40 +75,44 @@
     <div class="container">
         <h1>Форматировщик формул Excel</h1>
         <p class="subtitle">Excel Formula Formatter</p>
-        <p class="text-block">
-            <span class="primary">Введите вашу формулу ниже, чтобы улучшить её читаемость:</span><br>
-            <span class="secondary">Enter your formula below to improve its readability:</span>
-        </p>
-        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь / Enter your formula here..."></textarea>
+        <textarea id="formulaInput" placeholder="Введите вашу формулу здесь..."></textarea>
         <div style="text-align: center;">
-            <button onclick="formatFormula()">Форматировать формулу / Format Formula</button>
+            <button onclick="formatFormula()">Форматировать формулу</button>
         </div>
         <div class="output" id="formattedOutput"></div>
     </div>
-
-    <footer>
-        <p>Создано для упрощения работы с формулами. | Made for simplifying work with formulas.</p>
-        <p><a href="https://www.daxformatter.com/" target="_blank">Inspired by DAX Formatter</a></p>
-    </footer>
 
     <script>
         function formatFormula() {
             const inputFormula = document.getElementById('formulaInput').value;
 
             if (!inputFormula) {
-                alert('Пожалуйста, введите формулу. / Please enter a formula.');
+                alert('Пожалуйста, введите формулу.');
                 return;
             }
 
-            // Простая логика для форматирования формул
-            const formattedFormula = inputFormula
-                .replace(/;/g, ';\n    ') // Перенос строк после ";"
-                .replace(/\(/g, '(\n    ') // Перенос строк после "("
-                .replace(/\)/g, '\n)') // Перенос строк перед ")"
-                .replace(/\s+/g, ' ') // Удаление лишних пробелов
-                .trim();
+            // Функция для форматирования формулы
+            function prettyFormat(formula) {
+                let indent = 0;
+                const formatted = formula
+                    .replace(/;/g, ';\n') // Перенос строки после каждого ";"
+                    .replace(/\(/g, '(\n') // Перенос строки после "("
+                    .replace(/\)/g, '\n)') // Перенос строки перед ")"
+                    .split('\n') // Разбиваем на строки для добавления отступов
+                    .map(line => {
+                        if (line.includes(')')) indent -= 4; // Уменьшаем отступ перед ")"
+                        const indentedLine = ' '.repeat(indent) + line.trim(); // Добавляем отступ
+                        if (line.includes('(')) indent += 4; // Увеличиваем отступ после "("
+                        return indentedLine;
+                    })
+                    .join('\n'); // Собираем строки обратно
 
-            // Вывод результата
+                return formatted;
+            }
+
+            const formattedFormula = prettyFormat(inputFormula);
+
+            // Выводим результат
             const outputElement = document.getElementById('formattedOutput');
             outputElement.innerHTML = `<strong>Результат:</strong>\n\n${formattedFormula}`;
         }
