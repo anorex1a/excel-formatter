@@ -137,13 +137,18 @@
 
             const formattedFormula = prettyFormat(inputFormula);
 
-            // Выводим результат
+            // Выводим результат, не перезаписывая кнопку
             const outputElement = document.getElementById('formattedOutput');
-            outputElement.innerHTML = `<strong>Результат / Result:</strong>\n\n<pre>${formattedFormula}</pre>`;
+            outputElement.innerHTML = '<strong>Результат / Result:</strong>';
+            
+            // Создаем новый элемент для вывода результата
+            const resultElement = document.createElement('pre');
+            resultElement.textContent = formattedFormula;
+            outputElement.appendChild(resultElement);
 
-            // Показываем кнопку "Копировать"
+            // Убедимся, что кнопка "Копировать" всегда отображается
             const copyButton = document.getElementById('copyButton');
-            copyButton.style.display = 'block'; // Убедимся, что кнопка всегда отображается
+            copyButton.style.display = 'block';
         }
 
         function copyToClipboard() {
