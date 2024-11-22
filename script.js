@@ -1,17 +1,27 @@
+function simpleFormatFormula(formula) {
+    return formula
+        .replace(/\+/g, ' + ')
+        .replace(/-/g, ' - ')
+        .replace(/\*/g, ' * ')
+        .replace(/\//g, ' / ')
+        .replace(/\(/g, '( ')
+        .replace(/\)/g, ' ) ')
+        .replace(/\s+/g, ' ') // Убираем лишние пробелы
+        .trim();
+}
+
 function formatFormula() {
     const inputFormula = document.getElementById('formulaInput').value;
 
-    if (!inputFormula) {
-        alert('Please enter a formula.');
+    if (!inputFormula.trim()) {
+        alert('Введите формулу, чтобы продолжить.');
         return;
     }
 
-    // Simple example of formatting
-    const formatted = inputFormula
-        .replace(/;/g, ';\n')
-        .replace(/\*/g, ' * ')
-        .replace(/\+/g, ' + ')
-        .replace(/-/g, ' - ');
+    // Форматируем локально
+    const formattedFormula = simpleFormatFormula(inputFormula);
 
-    document.getElementById('formattedOutput').textContent = formatted;
+    // Отображение результата
+    const outputDiv = document.getElementById('formattedOutput');
+    outputDiv.innerHTML = `<p><strong>Результат:</strong></p><pre>${formattedFormula}</pre>`;
 }
