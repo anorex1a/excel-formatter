@@ -86,7 +86,6 @@
             cursor: pointer;
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
-            display: inline-block; /* Убираем display: none */
             z-index: 1;
         }
         #copyButton:hover {
@@ -142,7 +141,7 @@
             const outputElement = document.getElementById('formattedOutput');
             outputElement.innerHTML = '<strong>Результат / Result:</strong><pre>' + formattedFormula + '</pre>';
 
-            // Отображаем кнопку "Копировать"
+            // Убедимся, что кнопка "Копировать" все еще видна
             const copyButton = document.getElementById('copyButton');
             copyButton.style.display = 'inline-block'; // Сделаем кнопку видимой
         }
